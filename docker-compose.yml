@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # MongoDB Service
   mongodbIOT:
     image: mongo:latest
     container_name: mongodbIOT
@@ -11,11 +12,12 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-      TZ: "America/Mexico_City"  # Configuración de la zona horaria
+      TZ: "America/Mexico_City"
     ports:
       - "27017:27017"
     restart: unless-stopped
-    
+
+  # Microservice 1
   microservice_1:
     container_name: M1_MQTTDATASAVE
     build: ./IOTMS/M1
@@ -23,6 +25,9 @@ services:
       - "5001:5001"
     networks:
       - IOTWOW
+    restart: unless-stopped
+
+  # Microservice 2
   microservice_2:
     container_name: M2_DepuracionDB
     build: ./IOTMS/M2
@@ -30,6 +35,9 @@ services:
       - "5002:5002"
     networks:
       - IOTWOW
+    restart: unless-stopped
+
+  # Microservice 3
   microservice_3:
     container_name: M3_removedatosdup
     build: ./IOTMS/M3
@@ -37,6 +45,9 @@ services:
       - "5003:5003"
     networks:
       - IOTWOW
+    restart: unless-stopped
+
+  # Microservice 4
   microservice_4:
     container_name: M4_IOTWS
     build: ./IOTWS
@@ -44,6 +55,9 @@ services:
       - "4200:4200"
     networks:
       - IOTWOW
+    restart: unless-stopped
+
+  # Microservice 5
   microservice_5:
     container_name: M5_IOTAPIREST
     build: ./IOTAPIREST
@@ -51,9 +65,39 @@ services:
       - "4100:4100"
     networks:
       - IOTWOW
+    restart: unless-stopped
+
+  # Portainer Service
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "9000:9000"  # Exponer el puerto de la interfaz web de Portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Necesario para que Portainer administre Docker
+      - portainer_data:/data  # Persistencia de datos de Portainer
+    restart: unless-stopped
+    networks:
+      - IOTWOW
+
+  # Grafana Service
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"  # Exponer el puerto de la interfaz web de Grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Contraseña del admin de Grafana
+    volumes:
+      - grafana_data:/var/lib/grafana  # Persistencia de datos de Grafana
+    restart: unless-stopped
+    networks:
+      - IOTWOW
 
 volumes:
   mongodb_data_IOT:
+  portainer_data:
+  grafana_data:
 
 networks:
   IOTWOW:
