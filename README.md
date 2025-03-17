@@ -46,7 +46,7 @@ Para ejecutar la aplicación, utiliza **Docker Compose**. Asegúrate de tener Do
 
 Una vez que el backend esté en funcionamiento, puedes interactuar con la API IoT de la siguiente manera:
 
-- Accede a la API a través de `http://localhost:<puerto>` (sustituye `<puerto>` por el puerto configurado).
+- Accede a la API a través de `http://91.134.75.7:<puerto>` (sustituye `<puerto>` por el puerto configurado).
   
 - Revisa la documentación de la API para conocer los endpoints y cómo hacer peticiones.
 

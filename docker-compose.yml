@@ -15,6 +15,42 @@ services:
     ports:
       - "27017:27017"
     restart: unless-stopped
+    
+  microservice_1:
+    container_name: M1_MQTTDATASAVE
+    build: ./IOTMS/M1
+    ports:
+      - "5001:5001"
+    networks:
+      - IOTWOW
+  microservice_2:
+    container_name: M2_DepuracionDB
+    build: ./IOTMS/M2
+    ports:
+      - "5002:5002"
+    networks:
+      - IOTWOW
+  microservice_3:
+    container_name: M3_removedatosdup
+    build: ./IOTMS/M3
+    ports:
+      - "5003:5003"
+    networks:
+      - IOTWOW
+  microservice_4:
+    container_name: M4_IOTWS
+    build: ./IOTWS
+    ports:
+      - "4200:4200"
+    networks:
+      - IOTWOW
+  microservice_5:
+    container_name: M5_IOTAPIREST
+    build: ./IOTAPIREST
+    ports:
+      - "4100:4100"
+    networks:
+      - IOTWOW
 
 volumes:
   mongodb_data_IOT:
