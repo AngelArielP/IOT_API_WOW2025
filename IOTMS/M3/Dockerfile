@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5003
 
 # Ejecutar el microservicio
-CMD ["python", "removedatosdup.py"]
+CMD ["python", " NODE_ENV=production removedatosdup.py"]

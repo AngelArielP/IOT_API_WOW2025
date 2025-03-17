@@ -6,7 +6,9 @@ npm-debug.log
 yarn-debug.log
 yarn-error.log
 
-# Archivos de configuración específicos del entorno .env
+# Archivos de configuración específicos del entorno 
+.env
+.env.producción
 
 # Directorios de compilación
 /dist/

@@ -4,25 +4,30 @@ from pymongo import MongoClient
 from collections import defaultdict
 from datetime import datetime  # Importa datetime para convertir la cadena a datetime
 import pytz
+from dotenv import load_dotenv
+import os
 
 # Obtener la zona horaria local de México (Ciudad de México)
 local_tz = pytz.timezone("America/Mexico_City")
 
 # 🔹 Conexión a MongoDB
-MONGO_URI = "mongodb://admin:adminpassword@91.134.75.7:27017"
-MONGO_DB_NAME = "Datacruda"
+MONGO_URI = os.getenv("MONGO_URL")
+MONGO_DB_NAME = os.getenv("MONGO_DB_NAME_M1")
+MONGO_DB_NAME_M2_NEW = os.getenv("MONGO_DB_NAME_M2_NEW")
+API_URL_M2 = os.getenv("API_URL_M2")
+
 client_mongo = MongoClient(MONGO_URI)
 db = client_mongo[MONGO_DB_NAME]
 
 # Nueva base de datos para almacenar los datos en tiempo real
-realtime_db = client_mongo["RealtimePlanta1"]
+realtime_db = client_mongo[MONGO_DB_NAME_M2_NEW]
 
 # Nombre de la colección original
 collection_name = "_topic_flexy_2233_0701_24_data"  # Cambia esto si es necesario
 collection = db[collection_name]
 
 # URL de la API REST a la que se enviarán los datos
-API_URL = "http://91.134.75.7:4100/api/realtimeplanta1"  # Cambia esta URL por la URL de tu API
+API_URL = API_URL_M2  # Cambia esta URL por la URL de tu API
 
 def fetch_data():
     # Consultar los últimos datos en la colección, ordenados por timestamp de forma descendente

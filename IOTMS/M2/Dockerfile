@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5002
 
 # Ejecutar el microservicio
-CMD ["python", "DepuracionBD.py"]
+CMD ["python", " NODE_ENV=production DepuracionBD.py"]

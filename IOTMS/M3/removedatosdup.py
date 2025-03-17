@@ -2,15 +2,21 @@ import requests
 from pymongo import MongoClient
 from datetime import datetime
 import time
+from dotenv import load_dotenv
+import os
 
+MONGO_URI = os.getenv("MONGO_URL")
+MONGO_DB_NAME = os.getenv("MONGO_DB_NAME_M2")
+MONGO_DB_NAME_M2_NEW = os.getenv("MONGO_DB_NAME_M2_NEW")
+API_URL_M2 = os.getenv("API_URL_M2")
 # Conectar a MongoDB
-client = MongoClient("mongodb://admin:adminpassword@91.134.75.7:27017")  # Cambia la URL según tu configuración
-db = client["test"]  # Reemplaza con tu base de datos
-collection = db["realtimeplanta1"]  # Reemplaza con tu colección
+client = MongoClient(MONGO_URI)  # Cambia la URL según tu configuración
+db = client[MONGO_DB_NAME]  # Reemplaza con tu base de datos
+collection = db[MONGO_DB_NAME_M2_NEW]  # Reemplaza con tu colección
 turno = "Turno1"  # Reemplaza con el turno real que estés utilizando
 
 # URL de la API a la que se enviarán los datos
-API_URL = "http://91.134.75.7:4100/api/ciclosplanta1"  # Reemplaza con la URL real de tu API
+API_URL = API_URL_M2  # Reemplaza con la URL real de tu API
 
 
 def obtener_documentos_husky():

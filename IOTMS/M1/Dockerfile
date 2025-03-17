@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5001
 
 # Ejecutar el microservicio
-CMD ["python", "MqttDataSave.py"]
+CMD ["python", " NODE_ENV=production MqttDataSave.py"]

@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 4100
 
 # Comando para iniciar el servidor de la API
-CMD ["npm", "start"]
+CMD ["npm", "start:prod"]
