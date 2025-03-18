@@ -13,7 +13,7 @@ local_tz = pytz.timezone("America/Mexico_City")
 # 🔹 Conexión a MongoDB
 MONGO_URI = os.getenv("MONGO_URL")
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME_M1")
-
+print(MONGO_DB_NAME)
 client_mongo = MongoClient(MONGO_URI)
 db = client_mongo[MONGO_DB_NAME]
 
