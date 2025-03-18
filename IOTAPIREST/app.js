@@ -24,7 +24,7 @@ app.use('/api/ciclosplanta1', ciclosPlanta1Routes);
 app.use('/api/contadoresciclosplanta1', contadoresCiclosPlanta1Routes);
 
 // Conexión a la base de datos
-mongoose.connect('mongodb://admin:adminpassword@91.134.75.7:27017', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://admin:angel2025@91.134.75.7:27017', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         app.listen(4100, () => {
             console.log('Servidor en puerto 4100');

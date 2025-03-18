@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb');
 const WebSocket = require('ws'); // Importamos la librería WebSocket
 const { zonedTimeToUtc, utcToZonedTime } = require('date-fns-tz'); // Importamos funciones para manejar zonas horarias
 
-const url = "mongodb://admin:adminpassword@91.134.75.7:27017"; // URL de MongoDB
+const url = "mongodb://admin:angel2025@91.134.75.7:27017"; // URL de MongoDB
 const dbName1 = 'RealtimePlanta1'; // Base de datos principal
 const dbName2 = 'Ciclos'; // Base de datos de ciclos
 const dbName3 = 'Tiempos'; // Base de datos de eventos

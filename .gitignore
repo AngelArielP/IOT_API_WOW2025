@@ -6,8 +6,6 @@ npm-debug.log
 yarn-debug.log
 yarn-error.log
 
-# Archivos de configuración específicos del entorno .env
-
 # Directorios de compilación
 /dist/
 /build/
@@ -30,3 +28,4 @@ Thumbs.db         # Para Windows
 # Otros archivos temporales
 *.swp             # Archivos temporales de Vim
 *.swo
+.env

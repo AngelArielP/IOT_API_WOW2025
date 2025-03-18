@@ -4,7 +4,7 @@ from datetime import datetime
 import time
 
 # Conectar a MongoDB
-client = MongoClient("mongodb://admin:adminpassword@91.134.75.7:27017")  # Cambia la URL según tu configuración
+client = MongoClient("mongodb://admin:angel2025@91.134.75.7:27017")  # Cambia la URL según tu configuración
 db = client["test"]  # Reemplaza con tu base de datos
 collection = db["realtimeplanta1"]  # Reemplaza con tu colección
 turno = "Turno1"  # Reemplaza con el turno real que estés utilizando

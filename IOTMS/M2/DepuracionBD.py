@@ -9,7 +9,7 @@ import pytz
 local_tz = pytz.timezone("America/Mexico_City")
 
 # 🔹 Conexión a MongoDB
-MONGO_URI = "mongodb://admin:adminpassword@91.134.75.7:27017"
+MONGO_URI = "mongodb://admin:angel2025@91.134.75.7:27017"
 MONGO_DB_NAME = "Datacruda"
 client_mongo = MongoClient(MONGO_URI)
 db = client_mongo[MONGO_DB_NAME]
