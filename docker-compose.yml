@@ -9,10 +9,8 @@ services:
       - mongodb_data_IOT:/data/db
     networks:
       - IOTWOW
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-      TZ: "America/Mexico_City"
+    env_file:
+      - .env  # Cargar las variables de entorno desde el archivo .env
     ports:
       - "27017:27017"
     restart: unless-stopped
@@ -25,6 +23,8 @@ services:
       - "5001:5001"
     networks:
       - IOTWOW
+    env_file:
+      - .env  # Cargar las variables de entorno desde el archivo .env
     restart: unless-stopped
 
   # Microservice 2
@@ -35,6 +35,8 @@ services:
       - "5002:5002"
     networks:
       - IOTWOW
+    env_file:
+      - .env  # Cargar las variables de entorno desde el archivo .env
     restart: unless-stopped
 
   # Microservice 3
@@ -45,6 +47,8 @@ services:
       - "5003:5003"
     networks:
       - IOTWOW
+    env_file:
+      - .env  # Cargar las variables de entorno desde el archivo .env
     restart: unless-stopped
 
   # Microservice 4
@@ -55,6 +59,8 @@ services:
       - "4200:4200"
     networks:
       - IOTWOW
+    env_file:
+      - .env  # Cargar las variables de entorno desde el archivo .env
     restart: unless-stopped
 
   # Microservice 5
@@ -65,6 +71,8 @@ services:
       - "4100:4100"
     networks:
       - IOTWOW
+    env_file:
+      - .env  # Cargar las variables de entorno desde el archivo .env
     restart: unless-stopped
 
   # Portainer Service

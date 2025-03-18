@@ -1,6 +1,8 @@
-const express = require('express');
+require('dotenv').config({ path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env' });
+
 const cors = require('./middleware/cors');
 const mongoose = require('mongoose');
+const url = process.env.MONGO_URL;
 
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const plantaRoutes = require('./routes/plantaRoutes');
@@ -24,7 +26,7 @@ app.use('/api/ciclosplanta1', ciclosPlanta1Routes);
 app.use('/api/contadoresciclosplanta1', contadoresCiclosPlanta1Routes);
 
 // Conexión a la base de datos
-mongoose.connect('mongodb://admin:adminpassword@91.134.75.7:27017', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         app.listen(4100, () => {
             console.log('Servidor en puerto 4100');

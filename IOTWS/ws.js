@@ -1,11 +1,13 @@
+require('dotenv').config({ path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env' });
+
 const { MongoClient } = require('mongodb');
 const WebSocket = require('ws'); // Importamos la librería WebSocket
 const { zonedTimeToUtc, utcToZonedTime } = require('date-fns-tz'); // Importamos funciones para manejar zonas horarias
 
-const url = "mongodb://admin:adminpassword@91.134.75.7:27017"; // URL de MongoDB
-const dbName1 = 'RealtimePlanta1'; // Base de datos principal
-const dbName2 = 'Ciclos'; // Base de datos de ciclos
-const dbName3 = 'Tiempos'; // Base de datos de eventos
+const url = process.env.MONGO_URL;
+const dbName1 = process.env.DB_NAME_1;
+const dbName2 = process.env.DB_NAME_2;
+const dbName3 = process.env.DB_NAME_3;
 
 // Crea la instancia de MongoDB
 const client = new MongoClient(url, { useUnifiedTopology: true });
@@ -231,7 +233,7 @@ wss.on('connection', (ws) => {
 async function iniciarConexiones() {
     await conectarDB();
     server.listen(4200, () => {
-        console.log('Servidor WebSocket corriendo en http://91.134.75.7:4200');
+        console.log('Servidor WebSocket corriendo en http://mongodbIOT:4200');
     });
 }
 

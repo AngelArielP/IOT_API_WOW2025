@@ -13,6 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar el código del microservicio
 COPY . .
 
+# Establecer la variable de entorno
+ENV NODE_ENV=production
+
 # Exponer el puerto en el que el microservicio estará corriendo
 EXPOSE 5002
 

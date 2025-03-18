@@ -3,19 +3,23 @@ import json
 from datetime import datetime
 from pymongo import MongoClient
 import pytz
+from dotenv import load_dotenv
+import os
 
+# Cargar las variables de entorno
+load_dotenv()
 # Obtener la zona horaria local de México (Ciudad de México)
 local_tz = pytz.timezone("America/Mexico_City")
 # 🔹 Conexión a MongoDB
-MONGO_URI = "mongodb://admin:adminpassword@91.134.75.7:27017"
-MONGO_DB_NAME = "Datacruda"
-
+MONGO_URI = os.getenv("MONGO_URL")
+MONGO_DB_NAME = os.getenv("MONGO_DB_NAME_M1")
+print(MONGO_DB_NAME)
 client_mongo = MongoClient(MONGO_URI)
 db = client_mongo[MONGO_DB_NAME]
 
 # 🔹 Definir parámetros del broker MQTT
-MQTT_BROKER_URL = "tools.ewonsupport.biz"
-MQTT_BROKER_PORT = 1883
+MQTT_BROKER_URL = os.getenv("MQTT_BROKER_URL")
+MQTT_BROKER_PORT = int(os.getenv("MQTT_BROKER_PORT"))
 MQTT_KEEP_ALIVE_INTERVAL = 60
 
 # 🔹 Temas a suscribirse
