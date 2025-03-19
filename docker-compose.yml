@@ -17,7 +17,7 @@ services:
       - "27017:27017"
     restart: unless-stopped
 
-  # Microservice 1
+  # Microservices
   microservice_1:
     container_name: M1_MQTTDATASAVE
     build: ./IOTMS/M1
@@ -27,7 +27,6 @@ services:
       - IOTWOW
     restart: unless-stopped
 
-  # Microservice 2
   microservice_2:
     container_name: M2_DepuracionDB
     build: ./IOTMS/M2
@@ -37,7 +36,6 @@ services:
       - IOTWOW
     restart: unless-stopped
 
-  # Microservice 3
   microservice_3:
     container_name: M3_removedatosdup
     build: ./IOTMS/M3
@@ -47,7 +45,6 @@ services:
       - IOTWOW
     restart: unless-stopped
 
-  # Microservice 4
   microservice_4:
     container_name: M4_IOTWS
     build: ./IOTWS
@@ -57,7 +54,6 @@ services:
       - IOTWOW
     restart: unless-stopped
 
-  # Microservice 5
   microservice_5:
     container_name: M5_IOTAPIREST
     build: ./IOTAPIREST
@@ -72,10 +68,10 @@ services:
     image: portainer/portainer-ce:latest
     container_name: portainer
     ports:
-      - "9000:9000"  # Exponer el puerto de la interfaz web de Portainer
+      - "9000:9000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock  # Necesario para que Portainer administre Docker
-      - portainer_data:/data  # Persistencia de datos de Portainer
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
     restart: unless-stopped
     networks:
       - IOTWOW
@@ -85,11 +81,11 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-      - "3000:3000"  # Exponer el puerto de la interfaz web de Grafana
+      - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Contraseña del admin de Grafana
+      - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
-      - grafana_data:/var/lib/grafana  # Persistencia de datos de Grafana
+      - grafana_data:/var/lib/grafana
     restart: unless-stopped
     networks:
       - IOTWOW
@@ -102,3 +98,4 @@ volumes:
 networks:
   IOTWOW:
     driver: bridge
+    external: true  # Hacemos que la red sea accesible para otros compose
