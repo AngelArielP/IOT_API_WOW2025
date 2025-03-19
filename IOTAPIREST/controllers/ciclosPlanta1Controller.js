@@ -4,32 +4,36 @@ const CiclosPlanta1 = require('../models/ciclosPlanta1');
 exports.createCicloPlanta1 = async (req, res) => {
     try {
         const { maquina, turnos, fechaCreacion, cicloTotal } = req.body;
-
-        // Validación de los datos (por ejemplo, que los turnos y cicloTotal existan)
-        if (!turnos || !Array.isArray(turnos) || turnos.length === 0) {
-            return res.status(400).json({ message: 'Los turnos son obligatorios' });
+        // Validación de datos obligatorios
+        if (!maquina || !turnos || !Array.isArray(turnos) || turnos.length === 0 || !fechaCreacion) {
+            return res.status(400).json({ message: 'Datos inválidos' });
         }
 
-        // Crear los ciclos para cada turno y agregar el cicloTotal
-        const ciclos = turnos.map(turno => ({
+        // Verificar si ya existe un documento con la misma maquina y fechaCreacion
+        const existeCiclo = await CiclosPlanta1.findOne({ maquina, fechaCreacion });
+
+        if (existeCiclo) {
+            return res.status(409).json({ message: 'El ciclo para esta máquina y fecha ya existe' });
+        }
+
+        // Crear el nuevo ciclo
+        const nuevoCiclo = new CiclosPlanta1({
             maquina,
-            contadorCiclos: turno.contadorCiclos,
-            turno: turno.turno,
-            fechacicloinicial: turno.fechacicloinicial,
-            fechaciclofinal: turno.fechaciclofinal,
-            fechaCreacion: fechaCreacion,
-            cicloTotal: cicloTotal // El total de ciclos por día
-        }));
+            turnos,
+            fechaCreacion,
+            cicloTotal
+        });
 
-        // Guardar todos los ciclos
-        const ciclosGuardados = await CiclosPlanta1.insertMany(ciclos);
-
-        // Responder con los ciclos creados
-        res.status(201).json(ciclosGuardados);
+        // Guardar en la base de datos
+        const cicloGuardado = await nuevoCiclo.save();
+        res.status(201).json(cicloGuardado);
+        
     } catch (error) {
         res.status(500).json({ message: 'Error al crear ciclo de planta', error });
     }
 };
+
+
 
 
 // Obtener ciclos de planta
@@ -70,7 +74,6 @@ exports.searchCiclosPlanta1 = async (req, res) => {
         res.status(500).json({ message: 'Error al buscar ciclos de planta', error });
     }
 };
-
 
 // Actualizar ciclo existente
 exports.updateCicloPlanta1 = async (req, res) => {
