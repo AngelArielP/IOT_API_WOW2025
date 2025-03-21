@@ -1,7 +1,15 @@
 const { MongoClient } = require('mongodb');
 const WebSocket = require('ws'); // WebSocket para comunicación en tiempo real
+require('dotenv').config();
 
-const url = "mongodb://admin:adminpassword@91.134.75.7:27017"; // URL de MongoDB
+const mongoUser = process.env.MONGO_INITDB_ROOT_USERNAME;
+const mongoPass = process.env.MONGO_INITDB_ROOT_PASSWORD;
+const mongoHost = process.env.IP_PROD; // Nombre del servicio en `docker-compose.yml`
+const mongoPort = process.env.PORT_MONGO || 27017;
+
+const mongoUrl = `mongodb://${mongoUser}:${mongoPass}@${mongoHost}:${mongoPort}`;
+console.log(`Conectando a MongoDB en: ${mongoUrl}`);
+const url = mongoUrl; // URL de MongoDB
 const dbName = 'test'; // Base de datos única
 const collectionName = 'realtimeplanta1'; // Colección con datos de todas las máquinas
 

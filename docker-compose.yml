@@ -12,7 +12,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       TZ: "America/Mexico_City"
     ports:
-      - "27017:27017"
+      - "${PORT_MONGO}:${PORT_MONGO}"
     restart: unless-stopped
 
   # Microservices
@@ -20,7 +20,7 @@ services:
     container_name: M1_MQTTDATASAVE
     build: ./IOTMS/M1
     ports:
-      - "5001:5001"
+      - "${PORT_MQTT_DATASAVE}:${PORT_MQTT_DATASAVE}"
     networks:
       - IOTWOW
     restart: unless-stopped
@@ -31,7 +31,7 @@ services:
     container_name: M2_DepuracionDB
     build: ./IOTMS/M2
     ports:
-      - "5002:5002"
+      - "${PORT_DEPURACIONDB}:${PORT_DEPURACIONDB}"
     networks:
       - IOTWOW
     restart: unless-stopped
@@ -42,7 +42,7 @@ services:
     container_name: M3_removedatosdup
     build: ./IOTMS/M3
     ports:
-      - "5003:5003"
+      - "${PORT_REMOVEDATOSDUP}:${PORT_REMOVEDATOSDUP}"
     networks:
       - IOTWOW
     restart: unless-stopped
@@ -53,7 +53,7 @@ services:
     container_name: M4_IOTWS
     build: ./IOTWS
     ports:
-      - "4200:4200"
+      - "${PORT_IOTWS}:${PORT_IOTWS}"
     networks:
       - IOTWOW
     restart: unless-stopped
@@ -64,7 +64,7 @@ services:
     container_name: M5_IOTAPIREST
     build: ./IOTAPIREST
     ports:
-      - "4100:4100"
+      - "${PORT_IOTAPIREST}:${PORT_IOTAPIREST}"
     networks:
       - IOTWOW
     restart: unless-stopped
