@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # MongoDB Service
   mongodbIOT:
@@ -98,4 +96,3 @@ volumes:
 networks:
   IOTWOW:
     driver: bridge
-    external: true  # Hacemos que la red sea accesible para otros compose
