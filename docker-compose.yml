@@ -24,6 +24,8 @@ services:
     networks:
       - IOTWOW
     restart: unless-stopped
+    env_file:
+      - .env
 
   microservice_2:
     container_name: M2_DepuracionDB
@@ -33,6 +35,8 @@ services:
     networks:
       - IOTWOW
     restart: unless-stopped
+    env_file:
+      - .env
 
   microservice_3:
     container_name: M3_removedatosdup
@@ -42,6 +46,8 @@ services:
     networks:
       - IOTWOW
     restart: unless-stopped
+    env_file:
+      - .env
 
   microservice_4:
     container_name: M4_IOTWS
@@ -51,6 +57,8 @@ services:
     networks:
       - IOTWOW
     restart: unless-stopped
+    env_file:
+      - .env
 
   microservice_5:
     container_name: M5_IOTAPIREST
@@ -60,6 +68,8 @@ services:
     networks:
       - IOTWOW
     restart: unless-stopped
+    env_file:
+      - .env
 
   # Portainer Service
   portainer:
@@ -81,7 +91,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ROOT_USERNAME}
     volumes:
       - grafana_data:/var/lib/grafana
     restart: unless-stopped

@@ -2,9 +2,19 @@ import pytz
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 import time
+import os
+
+MONGO_USER = os.getenv("MONGO_INITDB_ROOT_USERNAME", "default_user")
+MONGO_PASS = os.getenv("MONGO_INITDB_ROOT_PASSWORD", "default_pass")
+PORT_MONGO = os.getenv("PORT_MONGO", "27017")
+IP_PROD = os.getenv("IP_PROD", "localhost")
+
+MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{IP_PROD}:{PORT_MONGO}"
+
+print(f"Conectando a MongoDB en {MONGO_URI}")
 
 # Conectar a MongoDB
-client = MongoClient("mongodb://admin:adminpassword@91.134.75.7:27017")
+client = MongoClient(MONGO_URI)
 db = client["test"]
 collection_realtime = db["realtimeplanta1"]
 collection_ciclos = db["ciclosplanta1"]

@@ -5,11 +5,21 @@ from collections import defaultdict
 from datetime import datetime  # Importa datetime para convertir la cadena a datetime
 import pytz
 
+import os
+
+MONGO_USER = os.getenv("MONGO_INITDB_ROOT_USERNAME", "default_user")
+MONGO_PASS = os.getenv("MONGO_INITDB_ROOT_PASSWORD", "default_pass")
+PORT_MONGO = os.getenv("PORT_MONGO", "27017")
+IP_PROD = os.getenv("IP_PROD", "localhost")
+
+MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{IP_PROD}:{PORT_MONGO}"
+
+print(f"Conectando a MongoDB en {MONGO_URI}")
+
 # Obtener la zona horaria local de México (Ciudad de México)
 local_tz = pytz.timezone("America/Mexico_City")
 
 # 🔹 Conexión a MongoDB
-MONGO_URI = "mongodb://admin:angel2025@91.134.75.7:27017"
 MONGO_DB_NAME = "Datacruda"
 client_mongo = MongoClient(MONGO_URI)
 db = client_mongo[MONGO_DB_NAME]
