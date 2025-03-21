@@ -65,3 +65,9 @@ Si deseas contribuir a este proyecto, por favor sigue estos pasos:
 Este proyecto está bajo la licencia **MIT**.
 
 ---
+
+docker-compose build microservice_1 microservice_2 microservice_3 microservice_4 microservice_5
+docker-compose up -d
+
+docker-compose build microservice_5
+docker-compose up -d
