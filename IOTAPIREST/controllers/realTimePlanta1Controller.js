@@ -76,8 +76,10 @@ exports.getRealTimePlanta1ByFecha = async (req, res) => {
 exports.getRealTimePlanta1ByMaquina = async (req, res) => {
     try {
         const { maquina } = req.query;  // Obtener el valor de 'maquina' de los parámetros de consulta
-        const registros = await RealTimePlanta1.find({ maquina: maquina }).sort({ timestamp: -1 });
-        res.status(200).json(registros);
+        const registros = await RealTimePlanta1.find({ maquina: maquina })
+        .sort({ timestamp: -1 }) // Ordenar por fecha de forma descendente
+        .limit(1); // Limitar a un solo documento (el más reciente)
+            res.status(200).json(registros);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener registros por máquina', error });
     }
@@ -87,10 +89,10 @@ exports.getRealTimePlanta1ByMaquina = async (req, res) => {
 exports.getRealTimePlanta1ByMaquinaYFecha = async (req, res) => {
     try {
         const { maquina, fecha } = req.query;  // Obtener 'maquina' y 'fecha' de los parámetros de consulta
-        const registros = await RealTimePlanta1.find({
-            maquina: maquina,
-            fecha: new Date(fecha)  // Asegúrate de que 'fecha' esté en formato de fecha
-        });
+        const registros = await RealTimePlanta1.find({ maquina: maquina })
+            .sort({ timestamp: -1 }) // Ordenar por fecha de forma descendente
+            .limit(1); // Limitar a un solo documento (el más reciente)
+        
         res.status(200).json(registros);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener registros por máquina y fecha', error });
